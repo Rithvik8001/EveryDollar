@@ -42,7 +42,7 @@ export default function Home() {
               Your wallet needs a brain too—track, analyze, and optimize your
               expenses with ease.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <div className="w-1/2 flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <Button className="h-10 px-8 bg-white text-black hover:bg-neutral-200 transition-colors font-medium text-base sm:text-lg w-full sm:w-auto">
                 Get Started
               </Button>
