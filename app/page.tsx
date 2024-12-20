@@ -35,7 +35,7 @@ export default function Home() {
       <main className="flex-grow">
         <div className="h-[calc(100vh-4rem)] flex flex-col justify-center items-center text-center px-4 sm:px-6">
           <div className="max-w-[1024px] mx-auto space-y-4 sm:space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-none text-white">
+            <h1 className="text-5xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-none text-white">
               SpendSense
             </h1>
             <p className="text-neutral-400 text-lg sm:text-xl lg:text-2xl max-w-[600px] mx-auto">
@@ -91,7 +91,7 @@ export default function Home() {
       <footer className="border-t border-neutral-800">
         <div className="container mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between">
           <span className="text-sm text-neutral-500 mb-4 sm:mb-0">
-            © 2023 SpendSense, Inc.
+            © 2024 SpendSense, Inc.
           </span>
           <div className="flex items-center gap-6">
             <Link
