@@ -95,16 +95,10 @@ export default function Home() {
           </span>
           <div className="flex items-center gap-6">
             <Link
-              href="#"
+              href="/"
               className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
             >
-              Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
-            >
-              Terms of Service
+              <Button variant={"link"}>Made with ❤️ by Rithvik</Button>
             </Link>
           </div>
         </div>
