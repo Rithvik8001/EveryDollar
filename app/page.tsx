@@ -1,100 +1,113 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { FeatureCard } from "@/components/FeatureCard";
+import { Menu, PieChart, Tags, TrendingUp, Users } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="flex flex-col min-h-screen bg-[#000000] text-white">
+      <header className="border-b border-neutral-800">
+        <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="font-medium">
+            SpendSense
+          </Link>
+          <nav className="hidden md:flex items-center gap-6">
+            <Link
+              href="#"
+              className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
+            >
+              <Button variant={"link"}>Sign Up</Button>
+            </Link>
+            <Button
+              variant="outline"
+              className="text-sm h-8 px-4 bg-transparent border-neutral-800 text-neutral-200 hover:border-neutral-700 hover:bg-transparent hover:text-white transition-all"
+            >
+              Sign In
+            </Button>
+          </nav>
+          <Button variant="ghost" size="icon" className="md:hidden">
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </div>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <main className="flex-grow">
+        <div className="h-[calc(100vh-4rem)] flex flex-col justify-center items-center text-center px-4 sm:px-6">
+          <div className="max-w-[1024px] mx-auto space-y-4 sm:space-y-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-none text-white">
+              SpendSense
+            </h1>
+            <p className="text-neutral-400 text-lg sm:text-xl lg:text-2xl max-w-[600px] mx-auto">
+              Your wallet needs a brain too—track, analyze, and optimize your
+              expenses with ease.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <Button className="h-10 px-8 bg-white text-black hover:bg-neutral-200 transition-colors font-medium text-base sm:text-lg w-full sm:w-auto">
+                Get Started
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="features"
+          className="container mx-auto px-4 sm:px-6 py-24 sm:py-32"
+        >
+          <div className="max-w-[1024px] mx-auto">
+            <div className="border border-neutral-800 rounded-xl overflow-hidden">
+              <div className="p-8 sm:p-10 space-y-10">
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.02em] text-center pb-6 border-b border-neutral-800">
+                  Key Features
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+                  <FeatureCard
+                    icon={<Tags className="w-6 h-6" />}
+                    title="Expense Categorization"
+                    description="Organize spending with predefined and custom categories. Understand your expenses at a glance."
+                  />
+                  <FeatureCard
+                    icon={<PieChart className="w-6 h-6" />}
+                    title="Spending Insights"
+                    description="Visualize your spending trends with intuitive charts and graphs. Gain clarity on your financial habits."
+                  />
+                  <FeatureCard
+                    icon={<TrendingUp className="w-6 h-6" />}
+                    title="Smart Analytics"
+                    description="AI-powered insights to help you understand and optimize your spending patterns."
+                  />
+                  <FeatureCard
+                    icon={<Users className="w-6 h-6" />}
+                    title="Team Collaboration"
+                    description="Share and manage expenses with your team, with granular permissions and roles."
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className="border-t border-neutral-800">
+        <div className="container mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between">
+          <span className="text-sm text-neutral-500 mb-4 sm:mb-0">
+            © 2023 SpendSense, Inc.
+          </span>
+          <div className="flex items-center gap-6">
+            <Link
+              href="#"
+              className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="#"
+              className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
+            >
+              Terms of Service
+            </Link>
+          </div>
+        </div>
       </footer>
     </div>
   );
