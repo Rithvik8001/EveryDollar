@@ -1,148 +1,156 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { FeatureCard } from "@/components/FeatureCard";
-import { Menu, PieChart, Tags, TrendingUp, Users, X } from "lucide-react";
+
+import { ArrowRight } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 export default function Home() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
   return (
-    <div className="flex flex-col min-h-screen bg-[#000000] text-white">
-      <header className="border-b border-neutral-800 relative z-50">
-        <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-medium">
-            SpendSense
-          </Link>
-          <nav className="hidden md:flex items-center gap-6">
+    <div className={`min-h-screen bg-[#FAFAFA] `}>
+      {/* Navbar */}
+      <nav className="fixed top-0 w-full bg-white/70 backdrop-blur-xl border-b border-gray-100 z-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
             <Link
-              href="/sign-up"
-              className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
+              href="/"
+              aria-label="SpendSense"
+              className="flex items-center space-x-2"
             >
-              <Button variant="link">Sign Up</Button>
+              <Logo />
+              <span className={` text-lg font-semibold text-gray-900`}>
+                SpendSense
+              </span>
             </Link>
-            <Link href="/sign-in">
-              <Button
-                variant="outline"
-                className="text-sm h-8 px-4 bg-transparent border-neutral-800 text-neutral-200 hover:border-neutral-700 hover:bg-transparent hover:text-white transition-all"
+            <div className="flex items-center gap-6">
+              <Link
+                href="/sign-in"
+                className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
               >
                 Sign In
-              </Button>
-            </Link>
-          </nav>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={toggleMobileMenu}
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-            <span className="sr-only">Toggle menu</span>
-          </Button>
-        </div>
-        {isMobileMenuOpen && (
-          <div className="absolute top-16 left-0 right-0 bg-black border-b border-neutral-800 md:hidden">
-            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-              <Link href="/sign-up" onClick={toggleMobileMenu}>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-neutral-200 hover:text-white hover:bg-neutral-800"
-                >
-                  Sign Up
-                </Button>
               </Link>
-              <Link href="/sign-in" onClick={toggleMobileMenu}>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start bg-transparent border-neutral-800 text-neutral-200 hover:border-neutral-700 hover:bg-neutral-800 hover:text-white"
-                >
-                  Sign In
-                </Button>
+              <Link
+                href="/sign-up"
+                className="group relative inline-flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-gray-900/20"
+              >
+                <span className="relative">Sign Up</span>
               </Link>
             </div>
           </div>
-        )}
-      </header>
+        </div>
+      </nav>
 
-      <main className="flex-grow">
-        <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center text-center px-4 sm:px-6 py-12 sm:py-16">
-          <div className="max-w-[1024px] mx-auto space-y-4 sm:space-y-6">
-            <h1 className="text-5xl sm:text-5xl lg:text-6xl font-extrabold tracking-[-0.02em] leading-tight sm:leading-none text-white">
-              SpendSense
-            </h1>
-            <p className="text-neutral-400 text-base sm:text-lg lg:text-xl max-w-[600px] mx-auto">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-16 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white opacity-60" />
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+        </div>
+        <div className="max-w-7xl mx-auto relative">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-20 blur-2xl" />
+              <h1 className="relative text-6xl sm:text-7xl lg:text-8xl font-bold text-gray-900 tracking-tight mb-6">
+                SpendSense
+              </h1>
+            </div>
+            <p className="text-xl sm:text-2xl text-gray-600 leading-relaxed mb-8 font-medium">
               Your wallet needs a brain too—track, analyze, and optimize your
               expenses with ease.
             </p>
-            <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Link href="/sign-up" className="w-full sm:w-auto">
-                <Button className="w-full sm:w-auto text-center h-10 px-8 bg-white text-black hover:bg-neutral-200 transition-colors font-medium text-base sm:text-lg rounded-lg">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div
-          id="features"
-          className="container mx-auto px-4 sm:px-6 py-16 sm:py-24"
-        >
-          <div className="max-w-[1024px] mx-auto">
-            <div className="border border-neutral-800 rounded-xl overflow-hidden">
-              <div className="p-6 sm:p-8 md:p-10 space-y-8 sm:space-y-10">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-[-0.02em] text-center pb-6 border-b border-neutral-800">
-                  Key Features
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                  <FeatureCard
-                    icon={<Tags className="w-6 h-6" />}
-                    title="Expense Categorization"
-                    description="Organize spending with predefined and custom categories. Understand your expenses at a glance."
-                  />
-                  <FeatureCard
-                    icon={<PieChart className="w-6 h-6" />}
-                    title="Spending Insights"
-                    description="Visualize your spending trends with intuitive charts and graphs. Gain clarity on your financial habits."
-                  />
-                  <FeatureCard
-                    icon={<TrendingUp className="w-6 h-6" />}
-                    title="Smart Analytics"
-                    description="AI-powered insights to help you understand and optimize your spending patterns."
-                  />
-                  <FeatureCard
-                    icon={<Users className="w-6 h-6" />}
-                    title="Team Collaboration"
-                    description="Share and manage expenses with your team, with granular permissions and roles."
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      <footer className="border-t border-neutral-800">
-        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between">
-          <span className="text-sm text-neutral-500 mb-4 sm:mb-0">
-            © 2024 SpendSense, Inc.
-          </span>
-          <div className="flex items-center gap-6">
             <Link
-              href="/"
-              className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
+              href="/sign-up"
+              className="group relative inline-flex items-center justify-center bg-gray-900 text-white text-lg font-medium px-8 py-4 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-gray-900/20 hover:scale-105"
             >
-              <Button variant="link">Made with ❤️ by Rithvik</Button>
+              <span className="mr-2">Get Started</span>
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-24 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Smart Expense Tracking",
+                description:
+                  "Automatically categorize and track your expenses with AI-powered insights.",
+                icon: "📊",
+              },
+              {
+                title: "Visual Analytics",
+                description:
+                  "Beautiful, easy-to-understand visual reports of your spending habits.",
+                icon: "📈",
+              },
+              {
+                title: "Budget Management",
+                description:
+                  "Set and manage budgets effortlessly with real-time alerts.",
+                icon: "💰",
+              },
+              {
+                title: "Secure & Private",
+                description:
+                  "Bank-level encryption ensures your financial data stays safe.",
+                icon: "🔒",
+              },
+              {
+                title: "Cross-Platform",
+                description:
+                  "Access your expense data seamlessly across all devices.",
+                icon: "🔄",
+              },
+              {
+                title: "Smart Savings",
+                description:
+                  "Get personalized tips to help you reach your financial goals.",
+                icon: "💡",
+              },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:scale-105"
+              >
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative py-24 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="max-w-7xl mx-auto relative">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+              Ready to take control of your finances?
+            </h2>
+            <Link
+              href="/sign-up"
+              className="group relative inline-flex items-center justify-center bg-white text-gray-900 text-lg font-medium px-8 py-4 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-white/20 hover:scale-105"
+            >
+              <span className="mr-2">Start Tracking Now</span>
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-4 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-600 font-medium">Made with ❤️ by Rithvik</p>
+          <p className="text-sm text-gray-500 mt-2">
+            &copy; 2024 SpendSense Inc. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
