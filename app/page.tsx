@@ -1,50 +1,90 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "@/components/FeatureCard";
-import { Menu, PieChart, Tags, TrendingUp, Users } from "lucide-react";
+import { Menu, PieChart, Tags, TrendingUp, Users, X } from "lucide-react";
 
 export default function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
   return (
     <div className="flex flex-col min-h-screen bg-[#000000] text-white">
-      <header className="border-b border-neutral-800">
+      <header className="border-b border-neutral-800 relative z-50">
         <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-medium">
             SpendSense
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link
-              href="#"
+              href="/sign-up"
               className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
             >
-              <Button variant={"link"}>Sign Up</Button>
+              <Button variant="link">Sign Up</Button>
             </Link>
-            <Button
-              variant="outline"
-              className="text-sm h-8 px-4 bg-transparent border-neutral-800 text-neutral-200 hover:border-neutral-700 hover:bg-transparent hover:text-white transition-all"
-            >
-              Sign In
-            </Button>
+            <Link href="/sign-in">
+              <Button
+                variant="outline"
+                className="text-sm h-8 px-4 bg-transparent border-neutral-800 text-neutral-200 hover:border-neutral-700 hover:bg-transparent hover:text-white transition-all"
+              >
+                Sign In
+              </Button>
+            </Link>
           </nav>
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Open menu</span>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={toggleMobileMenu}
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+            <span className="sr-only">Toggle menu</span>
           </Button>
         </div>
+        {isMobileMenuOpen && (
+          <div className="absolute top-16 left-0 right-0 bg-black border-b border-neutral-800 md:hidden">
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+              <Link href="/sign-up" onClick={toggleMobileMenu}>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-neutral-200 hover:text-white hover:bg-neutral-800"
+                >
+                  Sign Up
+                </Button>
+              </Link>
+              <Link href="/sign-in" onClick={toggleMobileMenu}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start bg-transparent border-neutral-800 text-neutral-200 hover:border-neutral-700 hover:bg-neutral-800 hover:text-white"
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="flex-grow">
-        <div className="h-[calc(100vh-4rem)] flex flex-col justify-center items-center text-center px-4 sm:px-6">
+        <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center text-center px-4 sm:px-6 py-12 sm:py-16">
           <div className="max-w-[1024px] mx-auto space-y-4 sm:space-y-6">
-            <h1 className="text-5xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-none text-white">
+            <h1 className="text-5xl sm:text-5xl lg:text-6xl font-extrabold tracking-[-0.02em] leading-tight sm:leading-none text-white">
               SpendSense
             </h1>
-            <p className="text-neutral-400 text-lg sm:text-xl lg:text-2xl max-w-[600px] mx-auto">
+            <p className="text-neutral-400 text-base sm:text-lg lg:text-xl max-w-[600px] mx-auto">
               Your wallet needs a brain too—track, analyze, and optimize your
               expenses with ease.
             </p>
             <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Link href={"/sign-up"}>
-                <Button className="w-1/2 text-center h-10 px-8 bg-white text-black hover:bg-neutral-200 transition-colors font-medium text-base sm:text-lg sm:w-auto rounded-lg mb-2">
+              <Link href="/sign-up" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto text-center h-10 px-8 bg-white text-black hover:bg-neutral-200 transition-colors font-medium text-base sm:text-lg rounded-lg">
                   Get Started
                 </Button>
               </Link>
@@ -54,12 +94,12 @@ export default function Home() {
 
         <div
           id="features"
-          className="container mx-auto px-4 sm:px-6 py-24 sm:py-32"
+          className="container mx-auto px-4 sm:px-6 py-16 sm:py-24"
         >
           <div className="max-w-[1024px] mx-auto">
             <div className="border border-neutral-800 rounded-xl overflow-hidden">
-              <div className="p-8 sm:p-10 space-y-10">
-                <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.02em] text-center pb-6 border-b border-neutral-800">
+              <div className="p-6 sm:p-8 md:p-10 space-y-8 sm:space-y-10">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-[-0.02em] text-center pb-6 border-b border-neutral-800">
                   Key Features
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
@@ -91,7 +131,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-neutral-800">
-        <div className="container mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between">
           <span className="text-sm text-neutral-500 mb-4 sm:mb-0">
             © 2024 SpendSense, Inc.
           </span>
@@ -100,7 +140,7 @@ export default function Home() {
               href="/"
               className="text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
             >
-              <Button variant={"link"}>Made with ❤️ by Rithvik</Button>
+              <Button variant="link">Made with ❤️ by Rithvik</Button>
             </Link>
           </div>
         </div>
