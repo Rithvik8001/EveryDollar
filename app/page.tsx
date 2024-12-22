@@ -43,9 +43,11 @@ export default function Home() {
               expenses with ease.
             </p>
             <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Button className="w-1/2 text-center h-10 px-8 bg-white text-black hover:bg-neutral-200 transition-colors font-medium text-base sm:text-lg sm:w-auto rounded-lg mb-2">
-                Get Started
-              </Button>
+              <Link href={"/sign-up"}>
+                <Button className="w-1/2 text-center h-10 px-8 bg-white text-black hover:bg-neutral-200 transition-colors font-medium text-base sm:text-lg sm:w-auto rounded-lg mb-2">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
