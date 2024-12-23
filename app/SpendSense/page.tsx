@@ -1,26 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { BadgeDollarSign } from "lucide-react";
 import Link from "next/link";
 
 export default function SpendSensePage() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="sm:max-w-3xl max-w-lg w-full mx-auto">
-        <div className="sm:mt-36 mt-32 overflow-hidden">
-          <Card className="p-24 rounded-xl flex flex-col space-y-2">
-            <CardTitle className="text-4xl font-bold text-center">
-              Welcome to SpendSense!
-            </CardTitle>
-            <CardDescription className="pl-8 text-md text-neutral-500 text-center">
-              This is your hub for a healthy finalcial life!
-            </CardDescription>
-            <Link className="w-full flex" href={"/SpendSense/expenses"}>
-              <Button className="w-1/2 mx-auto font-bold" variant={"default"}>
-                Log Expenses!
-              </Button>
-            </Link>
-          </Card>
-        </div>
+    <div className="min-h-[calc(100vh-73px)] flex flex-col justify-center items-center p-4 bg-gradient-to-r from-purple-100 to-sky-50">
+      <div className="text-center space-y-3 max-w-2xl w-full ">
+        <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold text-gray-800 flex items-center justify-center">
+          Welcome to EveryDollar
+          <BadgeDollarSign className="w-8 h-8" />
+        </h1>
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 px-4">
+          Your wallet needs a brain too—track, analyze, and optimize your
+          expenses with ease.
+        </p>
+        <Link href="/SpendSense/expenses" className="block">
+          <Button
+            className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg font-bold transition-all duration-300 ease-in-out transform hover:scale-105"
+            variant="default"
+          >
+            Log Expenses!
+          </Button>
+        </Link>
       </div>
     </div>
   );

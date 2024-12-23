@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BadgeDollarSignIcon } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
             >
               <Logo />
               <span className={` text-lg font-semibold text-gray-900`}>
-                SpendSense
+                EveryDollar
               </span>
             </Link>
             <div className="flex items-center gap-6">
@@ -48,8 +48,9 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-20 blur-2xl" />
-              <h1 className="relative text-6xl sm:text-7xl lg:text-8xl font-bold text-gray-900 tracking-tight mb-6">
-                SpendSense
+              <h1 className="relative text-6xl sm:text-7xl lg:text-8xl  text-gray-900 tracking-tight mb-6 font-extrabold flex">
+                <Link href={"/SpendSense"}>EveryDollar</Link>
+                <BadgeDollarSignIcon />
               </h1>
             </div>
             <p className="text-xl sm:text-2xl text-gray-600 leading-relaxed mb-8 font-medium">
