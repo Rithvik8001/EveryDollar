@@ -49,7 +49,7 @@ export default function Home() {
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-20 blur-2xl" />
               <h1 className="relative text-6xl sm:text-7xl lg:text-8xl  text-gray-900 tracking-tight mb-6 font-extrabold flex">
-                <Link href={"/SpendSense"}>EveryDollar</Link>
+                <Link href={"/"}>EveryDollar</Link>
                 <BadgeDollarSignIcon />
               </h1>
             </div>

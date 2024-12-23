@@ -12,7 +12,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "SpendSense",
+  title: "EveryDollar",
   description: "Manage your expenses with ease",
 };
 
