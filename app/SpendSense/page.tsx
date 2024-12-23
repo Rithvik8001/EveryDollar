@@ -1,23 +1,25 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 export default function SpendSensePage() {
   return (
-    <div className="min-h-full w-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 text-center">
-        <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 leading-tight">
-          Welcome to <span className="text-blue-500">SpendSense</span>
-        </h1>
-        <p className="text-xl text-gray-600">
-          Track your expenses, gain insights, and take control of your financial
-          life.
-        </p>
-        <div className="pt-4">
-          <Link href="/SpendSense/expenses" className="block w-full">
-            <Button className="w-full text-lg py-6 bg-blue-500 text-white hover:bg-blue-600 transition-all duration-300 ease-in-out">
-              Start Tracking Expenses
-            </Button>
-          </Link>
+    <div className="min-h-screen flex flex-col">
+      <div className="sm:max-w-3xl max-w-lg w-full mx-auto">
+        <div className="sm:mt-36 mt-32 overflow-hidden">
+          <Card className="p-24 rounded-xl flex flex-col space-y-2">
+            <CardTitle className="text-4xl font-bold text-center">
+              Welcome to SpendSense!
+            </CardTitle>
+            <CardDescription className="pl-8 text-md text-neutral-500 text-center">
+              This is your hub for a healthy finalcial life!
+            </CardDescription>
+            <Link className="w-full flex" href={"/SpendSense/expenses"}>
+              <Button className="w-1/2 mx-auto font-bold" variant={"default"}>
+                Log Expenses!
+              </Button>
+            </Link>
+          </Card>
         </div>
       </div>
     </div>

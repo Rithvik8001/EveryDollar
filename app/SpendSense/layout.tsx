@@ -7,6 +7,7 @@ import { CreditCard, LayoutDashboard, LogOut, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SignOutButton } from "@clerk/nextjs";
+import { BadgeDollarSign } from "lucide-react";
 
 export default function SpendSenseLayout({
   children,
@@ -20,24 +21,24 @@ export default function SpendSenseLayout({
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <div className="flex h-screen bg-white text-gray-800">
+    <div className="flex h-screen bg-neutral-100 text-gray-900">
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-gray-50 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 w-80 bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-xl rounded-r-xl transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0",
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex flex-col h-full">
-          <div className="p-6">
+          <div className="p-6 border-b border-gray-700">
             <Link href="/SpendSense">
-              <h1 className="text-2xl font-bold text-gray-800">
-                Spend<span className="text-blue-500">Sense</span>
+              <h1 className="text-3xl font-bold">
+                Spend<span className="text-blue-400">Sense</span>
               </h1>
             </Link>
           </div>
-          <nav className="flex-grow px-4 py-6">
-            <ul className="space-y-4">
+          <nav className="flex-grow px-6 py-6">
+            <ul className="space-y-6">
               <NavItem
                 href="/SpendSense/expenses"
                 icon={CreditCard}
@@ -52,34 +53,32 @@ export default function SpendSenseLayout({
               />
             </ul>
           </nav>
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-6 border-t border-gray-700">
             {user && (
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-4">
                 <img
                   src={user.imageUrl}
                   alt={user.fullName || "User"}
-                  className="w-10 h-10 rounded-full"
+                  className="w-12 h-12 rounded-full border-2 border-blue-500 shadow-md"
                 />
                 <div className="flex-grow">
-                  <p className="text-sm font-medium truncate">
+                  <p className="text-sm font-semibold truncate">
                     {user.fullName}
                   </p>
-                  <p className="text-xs text-gray-500 truncate">
+                  <p className="text-xs text-gray-400 truncate">
                     {user.primaryEmailAddress?.emailAddress}
                   </p>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-                >
-                  <SignOutButton redirectUrl="/">
-                    <LogOut
-                      className="w- h-5"
-                      onClick={() => signOut({ redirectUrl: "/" })}
-                    />
-                  </SignOutButton>
-                </Button>
+                <SignOutButton redirectUrl="/">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-white"
+                    onClick={() => signOut({ redirectUrl: "/" })}
+                  >
+                    <LogOut className="w-5 h-5" />
+                  </Button>
+                </SignOutButton>
               </div>
             )}
           </div>
@@ -89,24 +88,24 @@ export default function SpendSenseLayout({
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Mobile header */}
-        <header className="md:hidden flex justify-between items-center p-4 bg-white border-b border-gray-200">
+        <header className="md:hidden flex justify-between items-center p-4 bg-white shadow-md">
           <Link href="/SpendSense">
-            <h1 className="text-xl font-bold text-gray-800">
-              Spend<span className="text-blue-500">Sense</span>
+            <h1 className="text-2xl font-bold text-gray-800">
+              Spend<span className="text-blue-600">Sense</span>
             </h1>
           </Link>
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleSidebar}
-            className="text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+            className="text-gray-500 hover:text-gray-700"
           >
             {isSidebarOpen ? <X /> : <Menu />}
           </Button>
         </header>
 
         {/* Main content area */}
-        <main className="flex-1 overflow-auto bg-white p-4 md:p-8">
+        <main className="flex-1 overflow-auto bg-neutral-50 p-10 rounded-tl-xl">
           {children}
         </main>
       </div>
@@ -129,11 +128,11 @@ function NavItem({
     <li>
       <Link
         href={href}
-        className="flex items-center space-x-3 text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-colors p-2 rounded-lg group"
+        className="flex items-center space-x-4 text-gray-300 hover:text-white hover:bg-gray-700 p-3 rounded-lg transition"
         onClick={onClick}
       >
-        <Icon className="w-5 h-5" />
-        <span className="text-sm font-medium">{label}</span>
+        <Icon className="w-5 h-5 text-blue-400 group-hover:text-blue-600" />
+        <span className="text-base font-medium">{label}</span>
       </Link>
     </li>
   );
