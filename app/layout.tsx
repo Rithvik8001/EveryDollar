@@ -1,37 +1,29 @@
-import type { Metadata } from "next";
-import { Mona_Sans as FontSans } from "next/font/google";
+import { ClerkProvider, useUser } from "@clerk/nextjs";
+import { useEffect } from "react";
+import { signInWithClerk } from "@/lib/firebase";
 
-import "./globals.css";
-import { cn } from "@/lib/utils";
+function FirebaseAuth() {
+  const { isSignedIn } = useUser();
 
-import { ClerkProvider } from "@clerk/nextjs";
+  useEffect(() => {
+    if (isSignedIn) {
+      signInWithClerk().catch(console.error);
+    }
+  }, [isSignedIn]);
 
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-export const metadata: Metadata = {
-  title: "EveryDollar",
-  description: "Manage your expenses with ease",
-};
+  return null;
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
-          )}
-        >
-          {children}
-        </body>
+      <FirebaseAuth />
+      <html lang="en">
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   );

@@ -1,9 +1,13 @@
 import { SignIn } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export default function SignInPage() {
-  return (
-    <div className="min-h-screen flex justify-center items-center">
-      <SignIn afterSignInUrl={"/SpendSense"} />
-    </div>
-  );
+  const { isSignedIn } = useUser();
+
+  if (isSignedIn) {
+    redirect("/dashboard");
+  }
+
+  return <SignIn />;
 }
