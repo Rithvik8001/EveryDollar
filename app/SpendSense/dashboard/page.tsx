@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect } from "react";
 import { useFinanceStore } from "@/lib/store";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,10 +28,10 @@ export default function DashboardPage() {
   } = useFinanceStore();
 
   useEffect(() => {
-    if (isLoaded && isSignedIn) {
-      fetchTransactions();
+    if (isLoaded && isSignedIn && user?.id) {
+      fetchTransactions(user.id);
     }
-  }, [isLoaded, isSignedIn, fetchTransactions]);
+  }, [isLoaded, isSignedIn, user?.id, fetchTransactions]);
 
   if (!isLoaded || isLoading) {
     return <div>Loading...</div>;
