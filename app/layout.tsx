@@ -1,3 +1,4 @@
+"use client";
 import { ClerkProvider, useUser } from "@clerk/nextjs";
 import { useEffect } from "react";
 import { signInWithClerk } from "@/lib/firebase";
