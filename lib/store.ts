@@ -7,6 +7,8 @@ import {
   query,
   where,
   Timestamp,
+  updateDoc,
+  doc,
 } from "firebase/firestore";
 import { useAuth } from "@clerk/nextjs";
 
