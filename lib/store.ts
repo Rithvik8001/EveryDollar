@@ -18,6 +18,7 @@ type Transaction = {
   description: string;
   category: string;
   date: Date;
+  userId: string;
 };
 
 type FinanceStore = {
@@ -31,7 +32,7 @@ type FinanceStore = {
   fetchTransactions: (userId: string) => Promise<void>;
   addTransaction: (
     userId: string,
-    transaction: Omit<Transaction, "id">
+    transaction: Omit<Transaction, "id" | "userId">
   ) => Promise<void>;
   setBudget: (userId: string, amount: number) => Promise<void>;
 };
@@ -102,7 +103,7 @@ export const useFinanceStore = create<FinanceStore>((set, get) => ({
         userId,
         date: Timestamp.fromDate(transaction.date),
       });
-      const newTransaction = { id: docRef.id, ...transaction };
+      const newTransaction = { id: docRef.id, ...transaction, userId };
       set((state) => {
         const newTransactions = [...state.transactions, newTransaction];
         const newTotalIncome = newTransactions.reduce(
