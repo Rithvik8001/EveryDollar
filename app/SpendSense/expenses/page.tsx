@@ -53,10 +53,10 @@ export default function ExpensesPage() {
   const [newBudget, setNewBudget] = useState<string>(budget.toString());
 
   useEffect(() => {
-    if (isLoaded && isSignedIn) {
-      fetchTransactions();
+    if (isLoaded && isSignedIn && user?.id) {
+      fetchTransactions(user.id);
     }
-  }, [isLoaded, isSignedIn, fetchTransactions]);
+  }, [isLoaded, isSignedIn, user?.id, fetchTransactions]);
 
   if (!isLoaded || isLoading) {
     return <div>Loading...</div>;
@@ -72,7 +72,7 @@ export default function ExpensesPage() {
 
   const submitForm = async (e: FormEvent) => {
     e.preventDefault();
-    if (!category || amount === "" || !description || !date) {
+    if (!category || amount === "" || !description || !date || !user?.id) {
       alert("Please provide all the details");
       return;
     }
@@ -83,19 +83,33 @@ export default function ExpensesPage() {
       category,
       date,
     };
-    await addTransaction(newTransaction);
-    setAmount("");
-    setDescription("");
-    setCategory("");
-    setDate(undefined);
+    try {
+      await addTransaction(user.id, newTransaction);
+      setAmount("");
+      setDescription("");
+      setCategory("");
+      setDate(undefined);
+    } catch (error: any) {
+      console.error("Error adding transaction:", error);
+      alert(`Failed to add transaction: ${error?.message || "Unknown error"}`);
+    }
   };
 
   const handleBudgetSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!user?.id) {
+      alert("Please sign in to set a budget");
+      return;
+    }
     const budgetValue = parseFloat(newBudget);
     if (!isNaN(budgetValue) && budgetValue >= 0) {
-      await setBudget(budgetValue);
-      alert(`Budget set to $${budgetValue.toFixed(2)}`);
+      try {
+        await setBudget(user.id, budgetValue);
+        alert(`Budget set to $${budgetValue.toFixed(2)}`);
+      } catch (error: any) {
+        console.error("Error setting budget:", error);
+        alert(`Failed to set budget: ${error?.message || "Unknown error"}`);
+      }
     } else {
       alert("Please enter a valid budget amount");
     }

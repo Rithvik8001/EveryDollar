@@ -10,7 +10,6 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { useAuth } from "@clerk/nextjs";
 
 type Transaction = {
   id: string;
@@ -29,9 +28,12 @@ type FinanceStore = {
   budget: number;
   isLoading: boolean;
   error: string | null;
-  fetchTransactions: () => Promise<void>;
-  addTransaction: (transaction: Omit<Transaction, "id">) => Promise<void>;
-  setBudget: (amount: number) => Promise<void>;
+  fetchTransactions: (userId: string) => Promise<void>;
+  addTransaction: (
+    userId: string,
+    transaction: Omit<Transaction, "id">
+  ) => Promise<void>;
+  setBudget: (userId: string, amount: number) => Promise<void>;
 };
 
 export const useFinanceStore = create<FinanceStore>((set, get) => ({
@@ -42,12 +44,9 @@ export const useFinanceStore = create<FinanceStore>((set, get) => ({
   budget: 0,
   isLoading: false,
   error: null,
-  fetchTransactions: async () => {
-    const { getToken } = useAuth();
+  fetchTransactions: async (userId: string) => {
     set({ isLoading: true, error: null });
     try {
-      const token = await getToken();
-      const userId = await getUserId();
       const q = query(
         collection(db, "transactions"),
         where("userId", "==", userId)
@@ -55,7 +54,12 @@ export const useFinanceStore = create<FinanceStore>((set, get) => ({
       const querySnapshot = await getDocs(q);
       const transactions: Transaction[] = [];
       querySnapshot.forEach((doc) => {
-        transactions.push({ id: doc.id, ...doc.data() } as Transaction);
+        const data = doc.data();
+        transactions.push({
+          id: doc.id,
+          ...data,
+          date: data.date.toDate(),
+        } as Transaction);
       });
       const totalIncome = transactions.reduce(
         (sum, t) => (t.type === "income" ? sum + t.amount : sum),
@@ -80,16 +84,19 @@ export const useFinanceStore = create<FinanceStore>((set, get) => ({
         remainingBalance: budget - totalExpenses,
         isLoading: false,
       });
-    } catch (error) {
-      set({ error: "Failed to fetch transactions", isLoading: false });
+    } catch (error: any) {
+      console.error("Error fetching transactions:", error);
+      set({
+        error: `Failed to fetch transactions: ${
+          error?.message || "Unknown error"
+        }`,
+        isLoading: false,
+      });
     }
   },
-  addTransaction: async (transaction) => {
-    const { getToken } = useAuth();
+  addTransaction: async (userId: string, transaction) => {
     set({ isLoading: true, error: null });
     try {
-      const token = await getToken();
-      const userId = await getUserId();
       const docRef = await addDoc(collection(db, "transactions"), {
         ...transaction,
         userId,
@@ -120,16 +127,19 @@ export const useFinanceStore = create<FinanceStore>((set, get) => ({
           isLoading: false,
         };
       });
-    } catch (error) {
-      set({ error: "Failed to add transaction", isLoading: false });
+    } catch (error: any) {
+      console.error("Error adding transaction:", error);
+      set({
+        error: `Failed to add transaction: ${
+          error?.message || "Unknown error"
+        }`,
+        isLoading: false,
+      });
     }
   },
-  setBudget: async (amount) => {
-    const { getToken } = useAuth();
+  setBudget: async (userId: string, amount) => {
     set({ isLoading: true, error: null });
     try {
-      const token = await getToken();
-      const userId = await getUserId();
       const budgetRef = collection(db, "budgets");
       const q = query(budgetRef, where("userId", "==", userId));
       const querySnapshot = await getDocs(q);
@@ -144,14 +154,12 @@ export const useFinanceStore = create<FinanceStore>((set, get) => ({
         remainingBalance: amount - state.totalExpenses,
         isLoading: false,
       }));
-    } catch (error) {
-      set({ error: "Failed to set budget", isLoading: false });
+    } catch (error: any) {
+      console.error("Error setting budget:", error);
+      set({
+        error: `Failed to set budget: ${error?.message || "Unknown error"}`,
+        isLoading: false,
+      });
     }
   },
 }));
-
-async function getUserId() {
-  const { userId } = useAuth();
-  if (!userId) throw new Error("User not authenticated");
-  return userId;
-}
